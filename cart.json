@@ -19,6 +19,11 @@
             "brand": "Samsung",
             "doc_id": "64",
             "chat_id": 5575549228
+        },
+        "6": {
+            "brand": "Oppo",
+            "doc_id": "6",
+            "chat_id": 5575549228
         }
     }
 }
