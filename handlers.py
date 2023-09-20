@@ -89,9 +89,42 @@ def add_cart(update: Update, context: CallbackContext):
 
 def cart(update: Update, context: CallbackContext):
     query = update.callback_query
+    chat_id = query.message.chat.id
     order = InlineKeyboardButton(text="order",callback_data="order")
-    remove = InlineKeyboardButton(text="remove",callback_data="order")
+    remove = InlineKeyboardButton(text="remove",callback_data="remove")
+    button = InlineKeyboardButton(text="Main Menu",callback_data="main_menu")
+    keyboard = InlineKeyboardMarkup([[order, remove],[button]])
+    products = cart_py.get_cart(chat_id)
+    text = ""
 
-    keyboard = InlineKeyboardMarkup([[order, remove]])
+    for product in products:
 
-    query.edit_message_text(text="Cart menu",reply_markup=keyboard)
+        brand = product['brand']
+        doc_id = product['doc_id']
+        phone = db_py.get_phone(brand, doc_id)
+        
+        name = phone['name']
+        price = phone['price']
+        memory = phone['memory']
+        ram = phone['RAM']
+        color = phone['color']
+        
+        text += f"Name: {name} - {color}\nPrice: {price}\nMemory: {memory}/{ram}\n\n"
+
+    if text == "":
+        text = "Empty Cart!"
+    print(text) 
+    query.edit_message_text(text=text,reply_markup=keyboard)
+
+def remove(update: Update, context: CallbackContext):
+    query = update.callback_query
+    chat_id = query.message.chat.id
+
+    cart_py.remove(chat_id)
+
+    button = InlineKeyboardButton(text="Main Menu",callback_data="main_menu")
+    keyboard=InlineKeyboardMarkup([[button]])
+
+    query.edit_message_text(text='removed cart!',reply_markup=keyboard)
+
+    query.answer('removed cart!')

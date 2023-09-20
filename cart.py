@@ -24,12 +24,16 @@ class Cart:
         self.table.insert(document)
         return data
 
-    def get_cart(self,doc_id):
+    def get_cart(self,chat_id):
         cart=self.db.table("cart")
-        return cart.get(doc_id=doc_id)
+        User = Query()
+        return cart.search(User.chat_id == int(chat_id))
+    
     def remove(self, chat_id):
-        user=Query()
-        data=self.db.get(user.chat_id==chat_id)
+        User=Query()
+        cart=self.db.table("cart")
+        data=cart.remove(User.chat_id == int(chat_id))
+        
         return data
 if __name__ == "__main__":
     cart = Cart("cart.json")

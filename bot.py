@@ -8,7 +8,8 @@ from handlers import (
     phone,
     add_cart,
     main_menu,
-    cart
+    cart,
+    remove
 )
 
 TOKEN="6662177620:AAH-dEI7vGQWh-v3_piDLmm0qRnxptBqF2U"
@@ -24,6 +25,7 @@ dp.add_handler(CallbackQueryHandler(phone, pattern="phone"))
 dp.add_handler(CallbackQueryHandler(main_menu, pattern="main_menu"))
 dp.add_handler(CallbackQueryHandler(add_cart, pattern="addcart"))
 dp.add_handler(CallbackQueryHandler(cart, pattern="Cart"))
+dp.add_handler(CallbackQueryHandler(remove, pattern='remove'))
 
 updater.start_polling()
 updater.idle()
