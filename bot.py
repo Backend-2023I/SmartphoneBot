@@ -9,7 +9,9 @@ from handlers import (
     add_cart,
     main_menu,
     cart,
-    remove
+    remove,
+    nextproduct,
+    befoceproduct
 )
 
 TOKEN="6662177620:AAH-dEI7vGQWh-v3_piDLmm0qRnxptBqF2U"
@@ -26,6 +28,8 @@ dp.add_handler(CallbackQueryHandler(main_menu, pattern="main_menu"))
 dp.add_handler(CallbackQueryHandler(add_cart, pattern="addcart"))
 dp.add_handler(CallbackQueryHandler(cart, pattern="Cart"))
 dp.add_handler(CallbackQueryHandler(remove, pattern='remove'))
+dp.add_handler(CallbackQueryHandler(nextproduct, pattern='next'))
+dp.add_handler(CallbackQueryHandler(befoceproduct, pattern='before'))
 
 updater.start_polling()
 updater.idle()

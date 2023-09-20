@@ -47,16 +47,84 @@ def products(update: Update, context: CallbackContext):
     data = query.data
     text, brand = data.split('_')
     data = db_py.get_phone_list(brand)
+    start = 0
+    stop = 10
 
     buttons=[]
-    for i in data:
+    for i in data[start:stop]:
         button=InlineKeyboardButton(text=i['name'],callback_data=f"phone_{brand}_{i.doc_id}")
         buttons.append([button])
 
     back = InlineKeyboardButton(text="back",callback_data="Shop")
-    before = InlineKeyboardButton(text="⬅️",callback_data="before")
-    next = InlineKeyboardButton(text="➡️",callback_data="next")
-    buttons.append([before,next])
+    before = InlineKeyboardButton(text="⬅️",callback_data=f"before_{start}_{stop}_{brand}")
+    nextb = InlineKeyboardButton(text="➡️",callback_data=f"next_{start}_{stop}_{brand}")
+    buttons.append([before,nextb])
+
+    buttons.append([back])
+    keyboard=InlineKeyboardMarkup(buttons)
+    query.edit_message_text(text=brand,reply_markup=keyboard)
+
+def nextproduct(update: Update, context: CallbackContext):
+    query = update.callback_query
+    data = query.data
+    text, start, stop, brand = data.split('_')
+
+    start = int(start) + 10
+    stop = int(stop) + 10
+
+    data = db_py.get_phone_list(brand)
+
+
+    if len(data) <= start:
+        start = 0
+        stop = 10
+    print(start, stop)
+
+    buttons=[]
+    for i in data[start:stop]:
+        button=InlineKeyboardButton(text=i['name'],callback_data=f"phone_{brand}_{i.doc_id}")
+        buttons.append([button])
+
+    back = InlineKeyboardButton(text="back",callback_data="Shop")
+    before = InlineKeyboardButton(text="⬅️",callback_data=f"before_{start}_{stop}_{brand}")
+    nextb = InlineKeyboardButton(text="➡️",callback_data=f"next_{start}_{stop}_{brand}")
+    buttons.append([before,nextb])
+
+    buttons.append([back])
+    keyboard=InlineKeyboardMarkup(buttons)
+    query.edit_message_text(text=brand,reply_markup=keyboard)
+
+def befoceproduct(update: Update, context: CallbackContext):
+    query = update.callback_query
+    data = query.data
+    text, start, stop, brand = data.split('_')
+
+    start = int(start)
+    stop = int(stop)
+
+    data = db_py.get_phone_list(brand)
+
+    if start == 0 :
+        start = len(data)//10*10-10
+        stop = len(data)
+    
+    else:
+        if stop == len(data): # start=70, stop = 75
+            stop -= len(data)%10
+            start -= 10
+        else:
+            start -= 10
+            stop -= 10
+    # print(start, stop)
+    buttons=[]
+    for i in data[start:stop]:
+        button=InlineKeyboardButton(text=i['name'],callback_data=f"phone_{brand}_{i.doc_id}")
+        buttons.append([button])
+
+    back = InlineKeyboardButton(text="back",callback_data="Shop")
+    before = InlineKeyboardButton(text="⬅️",callback_data=f"before_{start}_{stop}_{brand}")
+    nextb = InlineKeyboardButton(text="➡️",callback_data=f"next_{start}_{stop}_{brand}")
+    buttons.append([before,nextb])
 
     buttons.append([back])
     keyboard=InlineKeyboardMarkup(buttons)
