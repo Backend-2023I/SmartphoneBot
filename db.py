@@ -1,8 +1,13 @@
 from tinydb import TinyDB, Query
 from telegram import update, InlineKeyboardButton, InlineKeyboardMarkup
 class DB:
+
     def __init__(self,path):
         self.db = TinyDB(path)
+
+    # def send_list(self,):
+    #     for i in len(data):
+    #         return 
 
     def get_tables(self):
         """

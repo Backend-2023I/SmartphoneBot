@@ -1,9 +1,24 @@
 {
     "cart": {
         "1": {
-            "brand":"brand",
+            "brand": "brand",
             "doc_id": "doc_id",
             "chat_id": "chat_id"
+        },
+        "2": {
+            "brand": "Apple",
+            "doc_id": "29",
+            "chat_id": 5826220976
+        },
+        "3": {
+            "brand": "Redmi",
+            "doc_id": "50",
+            "chat_id": 5826220976
+        },
+        "4": {
+            "brand": "Redmi",
+            "doc_id": "50",
+            "chat_id": 5826220976
         }
     }
 }
