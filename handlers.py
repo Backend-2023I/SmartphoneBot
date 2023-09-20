@@ -78,7 +78,6 @@ def nextproduct(update: Update, context: CallbackContext):
     if len(data) <= start:
         start = 0
         stop = 10
-    print(start, stop)
 
     buttons=[]
     for i in data[start:stop]:
@@ -92,7 +91,7 @@ def nextproduct(update: Update, context: CallbackContext):
 
     buttons.append([back])
     keyboard=InlineKeyboardMarkup(buttons)
-    query.edit_message_text(text=brand,reply_markup=keyboard)
+    query.edit_message_text(text=f"{brand} {start}/{stop}",reply_markup=keyboard)
 
 def befoceproduct(update: Update, context: CallbackContext):
     query = update.callback_query
@@ -103,19 +102,19 @@ def befoceproduct(update: Update, context: CallbackContext):
     stop = int(stop)
 
     data = db_py.get_phone_list(brand)
-
-    if start == 0 :
-        start = len(data)//10*10-10
-        stop = len(data)
+    
+    if start == 0:
+        if len(data)%10 != 0:
+            start = len(data)//10*10
+            stop = len(data)
+        else:
+            stop = len(data)
+            start = stop - 10
     
     else:
-        if stop == len(data): # start=70, stop = 75
-            stop -= len(data)%10
-            start -= 10
-        else:
-            start -= 10
-            stop -= 10
-    # print(start, stop)
+        stop = start
+        start = start - 10
+
     buttons=[]
     for i in data[start:stop]:
         button=InlineKeyboardButton(text=i['name'],callback_data=f"phone_{brand}_{i.doc_id}")
@@ -128,7 +127,7 @@ def befoceproduct(update: Update, context: CallbackContext):
 
     buttons.append([back])
     keyboard=InlineKeyboardMarkup(buttons)
-    query.edit_message_text(text=brand,reply_markup=keyboard)
+    query.edit_message_text(text=f"{brand} {start}/{stop}",reply_markup=keyboard)
 
 def phone(update: Update, context: CallbackContext):
     query = update.callback_query
@@ -181,7 +180,7 @@ def cart(update: Update, context: CallbackContext):
 
     if text == "":
         text = "Empty Cart!"
-    print(text) 
+
     query.edit_message_text(text=text,reply_markup=keyboard)
 
 def remove(update: Update, context: CallbackContext):
