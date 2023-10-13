@@ -32,7 +32,7 @@ def webhook():
         bot = telegram.Bot(TOKEN)
         dp = Dispatcher(bot,update_queue=None, workers=1)
         update = request.get_json()
-        print(update)
+        print("ok")
         update = Update.de_json(update, bot)
         
         dp.add_handler(CommandHandler("start",start))
@@ -48,6 +48,7 @@ def webhook():
 
 
         dp.process_update(update)
+        return "ok"
     else:
         return {"result": "Only post request"}
 
