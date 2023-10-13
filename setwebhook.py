@@ -7,7 +7,7 @@ bot = telegram.Bot(TOKEN)
 
 url = "https://backend2023i2.pythonanywhere.com/webhook/"
 
-# print(bot.delete_webhook())
-# print(bot.set_webhook(url))
+print(bot.delete_webhook())
+print(bot.set_webhook(url))
 
 print(bot.get_webhook_info())

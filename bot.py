@@ -14,7 +14,7 @@ from handlers import (
     befoceproduct
 )
 
-TOKEN="5892121487:AAFJ8hXhSsCFBNMp-hHqFtAfwhO8RtCxdrM"
+TOKEN="6534122111:AAGYTeibRsxEuQ6_GPC6QjsH2dEiRWSo-7Y"
 
 
 updater=Updater(token=TOKEN)
