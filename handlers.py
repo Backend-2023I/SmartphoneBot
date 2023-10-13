@@ -3,8 +3,8 @@ from telegram.ext import CallbackContext
 from db import DB
 from cart import Cart
 
-cart_py=Cart("cart.json")
-db_py=DB("data.json")
+cart_py=Cart("/home/backend2023I2/SmartphoneBot/cart.json")
+db_py=DB("/home/backend2023I2/SmartphoneBot/data.json")
 
 def start(update:Update, context:CallbackContext):
     bot=context.bot
