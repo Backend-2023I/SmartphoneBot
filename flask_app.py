@@ -17,7 +17,7 @@ from handlers import (
     befoceproduct
 )
 
-TOKEN='6631602228:AAGoRj0gPSHyGDXuLFeYTwZ7lfM-bwYclzI'
+TOKEN='6534122111:AAGYTeibRsxEuQ6_GPC6QjsH2dEiRWSo-7Y'
 
 app = Flask(__name__)
 
