@@ -30,11 +30,11 @@ def webhook():
 
     if request.method == "POST":
         bot = telegram.Bot(TOKEN)
-        dp = Dispatcher(bot,update_queue=None)
+        dp = Dispatcher(bot,update_queue=None, workers=1)
         update = request.get_json()
-
+        print(update)
         update = Update.de_json(update, bot)
-
+        
         dp.add_handler(CommandHandler("start",start))
         dp.add_handler(CallbackQueryHandler(product, pattern="Shop"))
         dp.add_handler(CallbackQueryHandler(products, pattern="products"))
